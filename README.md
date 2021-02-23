@@ -2,54 +2,73 @@
 
 ## users テーブル
 
-| Column         | Type   | Options     |
-| -------------- | ------- | ----------- |
-| nickname       | string  | null: false |
-| email          | string  | null: false |
-| password       | string  | null: false |
-| name           | string  | null: false |
-| name_read      | string  | null: false |
-| birthday       | date    | null: false |
+| Column             | Type    | Options                  |
+| --------------     | ------- | -----------              |
+| nickname           | string  | null: false              |
+| email              | string  | null: false, unique:true |
+| password           | string  | null: false              |
+| encrypted_password | string  | null: false              |
+| first_name         | string  | null: false              |
+| lust_name          | string  | null: false              |
+| first_name_read    | string  | null: false              |
+| lust_name_read     | string  | null: false              |
+| birthday           | date    | null: false              |
 
 
 ### Association
 
-- has_many :items, through: items
-- has_many :order
-  orderは、本来なら住所などを別テーブルに切り出してhas_oneを使うべきかと思う。
-  今回はユーザー情報更新画面を作らない（サンプルにないので実装しないのだと思う）ので、has_many。
+- has_many :items
+- has_many :addresses
 
 ## items テーブル
 
-| Column          | Type       | Options                        |
-| --------------  | ------     | ------------------------------ |
-| item_name       | string     | null: false                    |
-| description     | text       | null: false                    |
-| condition       | string     | null: false                    |
-| shipping_cost   | string     | null: false                    |
-| shipping_area   | string     | null: false                    |
-| shipping_time   | string     | null: false                    |
-| price           | integer    | null: false                    |
-| user            | references | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| --------------   | ------     | ------------------------------ |
+| item_name        | string     | null: false                    |
+| image            | integer    | null: false                    |
+| description      | text       | null: false                    |
+| condition        | string     | null: false                    |
+| shipping_cost_id | integer    | null: false                    |
+| shipping_area_id | integer    | null: false                    |
+| shipping_time_id | integer    | null: false                    |
+| price            | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one :order
+- has_one :address
 - has_one_attached :image
+- active_hash :shipping_cost_id, :shipping_area_id, shipping_time_id
 
-## order テーブル
+## address テーブル
   住所は、変更しないことを考えれば結合して登録すればいいのでひとつのカラムで管理。
 
 | Column                | Type       | Options                        |
 | ----------------      | ---------- | ------------------------------ |
-| order_date            | string     | null: false                    |
+| address_date          | string     | null: false                    |
 | postal_code           | string     | null: false                    |
 | address               | string     | null: false                    |
 | phone_number          | string     | null: false                    |
-| user                  | references | null: false, foreign_key: true |
-| items                 | references | null: false, foreign_key: true |
+| order                 | references | null: false, foreign_key: true |
+
+### Association
 
 - belong_to :user
-- belong_to :items
+- belong_to :item
+- has_one :order
+
+
+
+## order テーブル
+
+| Column                | Type       | Options                        |
+| ----------------      | ---------- | ------------------------------ |
+| user                  | references | null: false, foreign_key: true |
+| item                  | references | null: false, foreign_key: true |
+
+### Association
+
+- belong_to :user
+- belong_to :address
 
