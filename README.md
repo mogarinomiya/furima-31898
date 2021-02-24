@@ -6,12 +6,11 @@
 | --------------     | ------- | -----------              |
 | nickname           | string  | null: false              |
 | email              | string  | null: false, unique:true |
-| password           | string  | null: false              |
 | encrypted_password | string  | null: false              |
 | first_name         | string  | null: false              |
-| lust_name          | string  | null: false              |
+| last_name          | string  | null: false              |
 | first_name_read    | string  | null: false              |
-| lust_name_read     | string  | null: false              |
+| last_name_read     | string  | null: false              |
 | birthday           | date    | null: false              |
 
 
@@ -25,9 +24,9 @@
 | Column           | Type       | Options                        |
 | --------------   | ------     | ------------------------------ |
 | item_name        | string     | null: false                    |
-| image            | integer    | null: false                    |
 | description      | text       | null: false                    |
-| condition        | string     | null: false                    |
+| category_id      | integer    | null: false                    |
+| condition_id     | integer    | null: false                    |
 | shipping_cost_id | integer    | null: false                    |
 | shipping_area_id | integer    | null: false                    |
 | shipping_time_id | integer    | null: false                    |
@@ -42,13 +41,14 @@
 - active_hash :shipping_cost_id, :shipping_area_id, shipping_time_id
 
 ## address テーブル
-  住所は、変更しないことを考えれば結合して登録すればいいのでひとつのカラムで管理。
 
 | Column                | Type       | Options                        |
 | ----------------      | ---------- | ------------------------------ |
-| address_date          | string     | null: false                    |
 | postal_code           | string     | null: false                    |
+| province_id           | integer    | null: false                    |
+| city                  | string     | null: false                    |
 | address               | string     | null: false                    |
+| building_name         | string     |                                |
 | phone_number          | string     | null: false                    |
 | order                 | references | null: false, foreign_key: true |
 
@@ -57,7 +57,7 @@
 - belong_to :user
 - belong_to :item
 - has_one :order
-
+- active_hash :province_id
 
 
 ## order テーブル
