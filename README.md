@@ -37,6 +37,7 @@
 
 - belongs_to :user
 - has_one :address
+- has_one :order
 - has_one_attached :image
 - active_hash :shipping_cost_id, :shipping_area_id, shipping_time_id
 
@@ -70,5 +71,6 @@
 ### Association
 
 - belong_to :user
+- belong_to :item
 - belong_to :address
 
