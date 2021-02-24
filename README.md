@@ -17,7 +17,6 @@
 ### Association
 
 - has_many :items
-- has_many :addresses
 
 ## items テーブル
 
@@ -36,10 +35,9 @@
 ### Association
 
 - belongs_to :user
-- has_one :address
 - has_one :order
 - has_one_attached :image
-- active_hash :shipping_cost_id, :shipping_area_id, shipping_time_id
+- active_hash :category_id, condition_id, shipping_cost_id, :shipping_area_id, shipping_time_id
 
 ## address テーブル
 
@@ -55,9 +53,7 @@
 
 ### Association
 
-- belong_to :user
-- belong_to :item
-- has_one :order
+- belong_to :order
 - active_hash :province_id
 
 
@@ -70,7 +66,6 @@
 
 ### Association
 
-- belong_to :user
 - belong_to :item
-- belong_to :address
+- has_one :address
 
