@@ -6,10 +6,14 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :nickname
-    validates :first_name
-    validates :last_name
-    validates :first_name_read
-    validates :last_name_read
+    validates :first_name,      format: {with: /\A[ぁ-んァ-ン一-龥]/ }
+    validates :last_name,       format: {with: /\A[ぁ-んァ-ン一-龥]/ }
+    validates :first_name_read, format: {with: /\A[ァ-ヶー－]+\z/ }
+    validates :last_name_read,  format: {with: /\A[ァ-ヶー－]+\z/ }
     validates :birthday
   end
+
+  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i
+  validates :password, format: { with: VALID_PASSWORD_REGEX }
+
 end
