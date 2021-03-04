@@ -1,5 +1,5 @@
 module DateSelectHelpers
-  def date_select(date, options = {})
+  def date_select(date, _options = {})
     year, month, day = date.split('-')
 
     # 0始まりだとエラー返るので、数値型に直して0とってから文字列型に戻す
