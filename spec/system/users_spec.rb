@@ -147,7 +147,6 @@ RSpec.describe 'User新規登録', type: :system do
         find('input[name="commit"]').click
         # ログインページに戻ることを確認
         expect(current_path).to eq('/users/sign_in')
-        binding.pry
       end
     end
   end
