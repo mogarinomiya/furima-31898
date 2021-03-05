@@ -9,6 +9,6 @@ module SignUpHelpers
     fill_in 'first-name', with: user.first_name
     fill_in 'last-name-kana', with: user.last_name_read
     fill_in 'first-name-kana', with: user.first_name_read
-    date_select(user.birthday.strftime('%Y-%m-%d')) # なぜかここで書式指定しないと「Tue, 21 Jul 1987」になる。@userだけならspec/factories/user.rb内の指定でいけるが、@user.birthdayだとここで再指定が必要。
+    date_select(user.birthday.strftime('%Y-%m-%d'))
   end
 end
