@@ -86,14 +86,31 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid')
       end
+      it 'passwordが全角では登録できない' do
+        PW_NG_123 = 'Ａｂｃ８ｕｒ'
+        @user.password = PW_NG_123
+        @user.password_confirmation = PW_NG_123
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
+      end
     end
   end
 
   describe '新規登録/本人情報確認' do
     context '新規登録できる場合' do
-      it 'first_nameとlast_nameが全角ひらがな・カタカナ・漢字で存在すれば登録できる' do
+      it 'first_nameとlast_nameが全角漢字で存在すれば登録できる' do
         @user.last_name = '真壁'
-        @user.first_name = 'さら'
+        @user.first_name = '沙羅'
+        expect(@user).to be_valid
+      end
+      it 'first_nameとlast_nameが全角ひらがなで存在すれば登録できる' do
+        @user.last_name = 'ほそだ'
+        @user.first_name = 'けい'
+        expect(@user).to be_valid
+      end
+      it 'first_nameとlast_nameが全角カタカナで存在すれば登録できる' do
+        @user.last_name = 'スミス'
+        @user.first_name = 'アイシャ'
         expect(@user).to be_valid
       end
       it 'first_name_readとlast_name_readが全角カタカナで存在すれば登録できる' do
@@ -137,6 +154,11 @@ RSpec.describe User, type: :model do
         @user.last_name_read = 'せがわ'
         @user.valid?
         expect(@user.errors.full_messages).to include('Last name read is invalid')
+      end
+      it 'ユーザー本名（名前・読み）が空欄では登録できない' do
+        @user.first_name_read = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name read can't be blank", 'Last name read is invalid')
       end
       it 'ユーザー本名（名前・読み）が全角カタカナ以外は登録できない' do
         @user.first_name_read = '春菜'
