@@ -14,7 +14,7 @@ class Item < ApplicationRecord
     validates :item_name
     validates :image
     validates :description
-    validates :price,         format: { with: /\A\d[3-9][0-9]{2}|[1-9][0-9]{3,6}+\z/ }
+    validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
     validates :user
     with_options numericality: { other_than: 1 } do
       validates :category_id
