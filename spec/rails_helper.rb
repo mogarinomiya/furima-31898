@@ -63,4 +63,6 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   config.include DateSelectHelpers
   config.include SignUpHelpers
+  config.include SignInHelpers
+  config.include ItemNewHelpers
 end
