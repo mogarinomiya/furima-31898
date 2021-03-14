@@ -41,62 +41,62 @@ RSpec.describe Item, type: :model do
     end
     context '異常値のため投稿できない' do
       it 'category_idが1' do
-        @item.category_id = '1'
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
       it 'category_idが12以上' do
-        @item.category_id = '12'
+        @item.category_id = 12
         @item.valid?
         expect(@item.errors.full_messages).to include("Category must be less than or equal to 11")
       end
       it 'condition_idが1' do
-        @item.condition_id = '1'
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
       it 'condition_idが8以上' do
-        @item.condition_id = '8'
+        @item.condition_id = 8
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition must be less than or equal to 7")
       end
       it 'shipping_cost_idが1' do
-        @item.shipping_cost_id = '1'
+        @item.shipping_cost_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping cost must be other than 1")
       end
       it 'shipping_cost_idが4以上' do
-        @item.shipping_cost_id = '4'
+        @item.shipping_cost_id = 4
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping cost must be less than or equal to 3")
       end
       it 'province_idが1' do
-        @item.province_id = '1'
+        @item.province_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Province must be other than 1")
       end
       it 'province_idが49以上' do
-        @item.province_id = '49'
+        @item.province_id = 49
         @item.valid?
         expect(@item.errors.full_messages).to include("Province must be less than or equal to 48")
       end
       it 'shipping_time_idが1' do
-        @item.shipping_time_id = '1'
+        @item.shipping_time_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping time must be other than 1")
       end
       it 'shipping_time_idが5以上' do
-        @item.shipping_time_id = '5'
+        @item.shipping_time_id = 5
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping time must be less than or equal to 4")
       end
       it 'priceが300円未満' do
-        @item.price = '299'
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
       end
       it 'priceが9,999,999円以上' do
-        @item.price = '10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
       end
