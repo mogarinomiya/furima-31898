@@ -52,15 +52,7 @@ RSpec.describe 'User新規登録', type: :system do
       expect(page).to have_no_content('ログアウト')
 
       # ログインができる
-      # ログインページへ移動する
-      visit user_session_path
-      # ログイン情報を入力する
-      fill_in 'email', with: @user.email
-      fill_in 'password', with: @user.password
-      # ログインボタンを押す
-      find('input[name="commit"]').click
-      # トップページに遷移したことを確認
-      expect(current_path).to eq(root_path)
+      sign_in(@user)
     end
   end
 
