@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_item, only: [:show, :edit]
+  before_action :set_item, only: [:show, :edit, :update]
   before_action :correct_display, only: [:edit, :update]
 
   def index
@@ -47,11 +47,10 @@ class ItemsController < ApplicationController
   end
 
   def correct_display
-    item = Item.find(params[:id])
-    if current_user.id != item.user_id
+    if current_user.id != @item.user_id
       redirect_to root_path
     else
-      unless request.referer&.include?(item_path(item.id))
+      unless request.referer&.include?(item_path(@item.id))
         redirect_to root_path
       end
     end
